@@ -42,13 +42,19 @@ The frontend app should implememt the following features:
 -  phone : a nullable string representing the phone number of the customer 
 -  address : a nullable  Address  object representing the address of the customer 
 ### Address
--  name : a nullable string representing the name of the item 
--  quantity : an integer representing the quantity of the item included in the invoice 
--  price : a nullable double representing the price of the item 
--  total : a nullable double representing the total price charged for the item in the invoice 
+-  street : a nullable string representing the street address 
+-  city : a nullable string representing the city 
+-  state : a nullable string representing the state 
+-  zipCode : a nullable string representing the zip code 
+-  country : a nullable string representing the country 
 ### PaymentInfo
 -  cardType : a nullable string representing the type of credit card used for payment 
 -  cardNumber : a nullable string representing the credit card number used for payment 
 -  expirationMonth : an integer representing the expiration month of the credit card used for payment 
 -  expirationYear : an integer representing the expiration year of the credit card used for payment 
 -  cvv : a nullable string representing the Card Verification Value (CVV) of the credit card used for 
+### InvoiceItem
+-  name : a nullable string representing the name of the item 
+-  quantity : an integer representing the quantity of the item included in the invoice 
+-  price : a nullable double representing the price of the item 
+-  total : a nullable double representing the total price charged for the item in the invoice 
