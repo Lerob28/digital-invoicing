@@ -1,7 +1,7 @@
-# Digital invoicing - Internship Assignment
+# Digital invoicing - Assignment
 ---
 
-Implement a REST service to manage invoices, create also a web application that consumes this service to manage invoices.
+Implement a REST service and a web application to manage invoices.
 
 ## Terminology
 ---
@@ -18,7 +18,6 @@ The service should implement the following fonctionalities:
 - Update **[Customer, Invoice, Address, PaymentInfo]**
 - Delete **[Customer, Invoice, Address, PaymentInfo]**
 - Get all/paginated/partially(search, filter) **[customers, invoices, addresses, payment infos]**
-All errors/exceptions should be handled
 
 ### Frontend
 The frontend app should implememt the following features:
@@ -58,3 +57,9 @@ The frontend app should implememt the following features:
 -  quantity : an integer representing the quantity of the item included in the invoice 
 -  price : a nullable double representing the price of the item 
 -  total : a nullable double representing the total price charged for the item in the invoice 
+
+## Notes
+- Our tech stack is mostly Java with Spring framework and React for front-end.
+- Please create a 'production-ready' service as you see it (documentation / tests / logs / exception handling).
+- Please provide an instruction on how to run the app.
+- Submit your solution either as a public repository (github, bitbucket, etc.) or as a zip archive.
