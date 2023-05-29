@@ -31,14 +31,14 @@ The frontend app should implememt the following features:
 -  invoiceNumber : a string representing the invoice number 
 -  customer : a  Customer  object representing the customer associated with the invoice 
 -  items : a list of  InvoiceItem  objects representing the items included in the invoice 
--  billingAddress : a Address  object representing the billing address associated with the invoice 
+-  billingAddress : an Address  object representing the billing address associated with the invoice 
 -  paymentInfo :  a PaymentInfo  object representing the payment information associated with the invoice 
--  totalAmount : a nullable double representing the total amount charged for the invoice 
+-  totalAmount : a double representing the total amount charged for the invoice 
 ### Customer
 -  name : a string representing the name of the customer 
 -  email : a string representing the email address of the customer 
 -  phone : a string representing the phone number of the customer 
--  address : a  Address  object representing the address of the customer 
+-  address : an Address  object representing the address of the customer 
 ### Address
 -  street : a string representing the street address 
 -  city : a string representing the city 
