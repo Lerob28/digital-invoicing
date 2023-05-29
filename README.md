@@ -28,35 +28,34 @@ The frontend app should implememt the following features:
 ## Minimum entities Schema
 ---
 ### Invoice
--  id : a nullable string representing the ID of the invoice 
--  invoiceNumber : a nullable string representing the invoice number 
--  customer : a nullable  Customer  object representing the customer associated with the invoice 
--  items : a nullable list of  InvoiceItem  objects representing the items included in the invoice 
--  billingAddress : a nullable  Address  object representing the billing address associated with the invoice 
--  paymentInfo :  a nullable  PaymentInfo  object representing the payment information associated with the invoice 
+-  invoiceNumber : a string representing the invoice number 
+-  customer : a  Customer  object representing the customer associated with the invoice 
+-  items : a list of  InvoiceItem  objects representing the items included in the invoice 
+-  billingAddress : a Address  object representing the billing address associated with the invoice 
+-  paymentInfo :  a PaymentInfo  object representing the payment information associated with the invoice 
 -  totalAmount : a nullable double representing the total amount charged for the invoice 
 ### Customer
--  name : a nullable string representing the name of the customer 
--  email : a nullable string representing the email address of the customer 
--  phone : a nullable string representing the phone number of the customer 
--  address : a nullable  Address  object representing the address of the customer 
+-  name : a string representing the name of the customer 
+-  email : a string representing the email address of the customer 
+-  phone : a string representing the phone number of the customer 
+-  address : a  Address  object representing the address of the customer 
 ### Address
--  street : a nullable string representing the street address 
--  city : a nullable string representing the city 
--  state : a nullable string representing the state 
--  zipCode : a nullable string representing the zip code 
--  country : a nullable string representing the country 
+-  street : a string representing the street address 
+-  city : a string representing the city 
+-  state : a string representing the state 
+-  zipCode : a string representing the zip code 
+-  country : a string representing the country 
 ### PaymentInfo
--  cardType : a nullable string representing the type of credit card used for payment 
--  cardNumber : a nullable string representing the credit card number used for payment 
+-  cardType : a string representing the type of credit card used for payment 
+-  cardNumber : a string representing the credit card number used for payment 
 -  expirationMonth : an integer representing the expiration month of the credit card used for payment 
 -  expirationYear : an integer representing the expiration year of the credit card used for payment 
--  cvv : a nullable string representing the Card Verification Value (CVV) of the credit card used for 
+-  cvv : a string representing the Card Verification Value (CVV) of the credit card used for 
 ### InvoiceItem
--  name : a nullable string representing the name of the item 
+-  name : a string representing the name of the item 
 -  quantity : an integer representing the quantity of the item included in the invoice 
--  price : a nullable double representing the price of the item 
--  total : a nullable double representing the total price charged for the item in the invoice 
+-  price : a double representing the price of the item 
+-  total : a double representing the total price charged for the item in the invoice 
 
 ## Notes
 - Our tech stack is mostly Java with Spring framework and React for front-end.
