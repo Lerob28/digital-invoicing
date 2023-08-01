@@ -15,6 +15,10 @@ import java.util.List;
 @AllArgsConstructor
 public class Invoice extends  AbstractEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String invoiceNumber;
 
     private Double totalAmount;

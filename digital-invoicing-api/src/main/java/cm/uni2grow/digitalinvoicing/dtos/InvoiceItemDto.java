@@ -1,6 +1,6 @@
-package cm.uni2grow.digitalinvoicing.entities;
+package cm.uni2grow.digitalinvoicing.dtos;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,10 +11,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class InvoiceItem extends AbstractEntity {
+public class InvoiceItemDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
@@ -25,7 +23,6 @@ public class InvoiceItem extends AbstractEntity {
 
     private Double price;
 
-    @ManyToOne
-    private Invoice invoice;
+    private InvoiceDto invoice;
 
 }

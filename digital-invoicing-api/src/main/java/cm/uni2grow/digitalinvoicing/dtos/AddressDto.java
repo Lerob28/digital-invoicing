@@ -1,22 +1,17 @@
-package cm.uni2grow.digitalinvoicing.entities;
+package cm.uni2grow.digitalinvoicing.dtos;
 
-import jakarta.persistence.*;
+import cm.uni2grow.digitalinvoicing.entities.Address;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
-@Entity
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class Address extends AbstractEntity {
+@NoArgsConstructor
+public class AddressDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String street;
