@@ -1,6 +1,7 @@
 package cm.uni2grow.digitalinvoicing.mappers;
 
 import cm.uni2grow.digitalinvoicing.dtos.CustomerDto;
+import cm.uni2grow.digitalinvoicing.dtos.SimpleCustomerDto;
 import cm.uni2grow.digitalinvoicing.entities.Customer;
 import org.mapstruct.Mapper;
 import org.mapstruct.NullValueCheckStrategy;

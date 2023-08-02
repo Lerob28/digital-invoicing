@@ -24,8 +24,8 @@ public class InvoiceController implements InvoiceApi {
     }
 
     @Override
-    public InvoiceDto updateInvoice(InvoiceDto invoice, Long invoiceId) {
-        return invoiceService.updateInvoice(invoice);
+    public InvoiceDto updateInvoice(Long invoiceId, InvoiceDto invoice) {
+        return invoiceService.updateInvoice(invoiceId, invoice);
     }
 
     @Override
@@ -44,8 +44,8 @@ public class InvoiceController implements InvoiceApi {
     }
 
     @Override
-    public void deleteInvoice(Long invoiceId) {
-        invoiceService.deleteInvoice(invoiceId);
+    public ResponseEntity<HttpStatus> deleteInvoice(Long invoiceId) {
+        return invoiceService.deleteInvoice(invoiceId);
     }
 
 }

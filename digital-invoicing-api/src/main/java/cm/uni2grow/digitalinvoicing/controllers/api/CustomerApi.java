@@ -1,7 +1,9 @@
 package cm.uni2grow.digitalinvoicing.controllers.api;
 
 import cm.uni2grow.digitalinvoicing.dtos.CustomerDto;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,7 +15,10 @@ public interface CustomerApi {
     CustomerDto createCustomer(@RequestBody CustomerDto Customer);
 
     @PutMapping(value = APP_ROOT+"/customer/update/{customerId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    CustomerDto updateCustomer(@RequestBody CustomerDto Customer, @PathVariable(value = "customerId") Long CustomerId);
+    CustomerDto updateCustomer(@PathVariable(value = "customerId") Long CustomerId, @RequestBody CustomerDto Customer);
+
+   /* @PutMapping(value = APP_ROOT+"/customer/update-address/{customerId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    CustomerDto updateCustomerAddress(@PathVariable(value = "customerId") Long CustomerId, @RequestBody AddressDto addressDto);  */
 
     @GetMapping(value = APP_ROOT+"/customer/all", produces = MediaType.APPLICATION_JSON_VALUE)
     List<CustomerDto> getAllCustomers();
@@ -21,6 +26,6 @@ public interface CustomerApi {
     @GetMapping(value = APP_ROOT+"/customer/{customerId}", produces = MediaType.APPLICATION_JSON_VALUE)
     CustomerDto findCustomerById(@PathVariable(value = "customerId") Long CustomerId);
 
-    @DeleteMapping(value = APP_ROOT+"customer/delete/{customerId}")
-    void deleteCustomer(@PathVariable(value = "customerId") Long CustomerId);
+    @DeleteMapping(value = APP_ROOT+"/customer/delete/{customerId}")
+    ResponseEntity<HttpStatus> deleteCustomer(@PathVariable(value = "customerId") Long CustomerId);
 }

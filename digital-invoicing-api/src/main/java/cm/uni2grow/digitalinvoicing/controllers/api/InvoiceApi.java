@@ -3,6 +3,7 @@ package cm.uni2grow.digitalinvoicing.controllers.api;
 import cm.uni2grow.digitalinvoicing.dtos.InvoiceDto;
 import static cm.uni2grow.digitalinvoicing.utils.Constants.APP_ROOT;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +15,7 @@ public interface InvoiceApi {
     ResponseEntity<InvoiceDto> createInvoice(@RequestBody InvoiceDto invoice);
 
     @PutMapping(value = APP_ROOT+"/invoice/update/{invoiceId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    InvoiceDto updateInvoice(@RequestBody InvoiceDto invoice, @PathVariable(value = "invoiceId") Long invoiceId);
+    InvoiceDto updateInvoice(@PathVariable(value = "invoiceId") Long invoiceId, @RequestBody InvoiceDto invoice);
 
     @GetMapping(value = APP_ROOT+"/invoice/all", produces = MediaType.APPLICATION_JSON_VALUE)
     List<InvoiceDto> getAllInvoices();
@@ -25,6 +26,6 @@ public interface InvoiceApi {
     @GetMapping(value = APP_ROOT+"/invoice/number/{invoiceNumber}", produces = MediaType.APPLICATION_JSON_VALUE)
     InvoiceDto findInvoiceByNumber(@PathVariable(value = "invoiceNumber") String invoiceNumber);
 
-    @DeleteMapping(value = APP_ROOT+"invoice/delete/{invoiceId}")
-    void deleteInvoice(@PathVariable(value = "invoiceId") Long invoiceId);
+    @DeleteMapping(value = APP_ROOT+"/invoice/delete/{invoiceId}")
+    ResponseEntity<HttpStatus> deleteInvoice(@PathVariable(value = "invoiceId") Long invoiceId);
 }

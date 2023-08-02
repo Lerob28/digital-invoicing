@@ -8,10 +8,15 @@ import cm.uni2grow.digitalinvoicing.exceptions.InvalidEntityException;
 import cm.uni2grow.digitalinvoicing.mappers.InvoiceMapper;
 import cm.uni2grow.digitalinvoicing.repositories.InvoiceRepository;
 import cm.uni2grow.digitalinvoicing.validators.InvoiceValidator;
+
 import jakarta.transaction.Transactional;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -27,7 +32,6 @@ import java.util.stream.Collectors;
 public class InvoiceServiceImpl implements InvoiceService {
 
     private InvoiceRepository invoiceRepository;
-
     private InvoiceMapper invoiceMapper;
 
     @Override
@@ -42,29 +46,30 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
-    public InvoiceDto updateInvoice(InvoiceDto invoice) {
-        return invoice;
+    public InvoiceDto updateInvoice(Long invoiceId, InvoiceDto invoice) {
+        InvoiceDto invoiceDto = findInvoiceById(invoiceId);
+        Invoice invoiceToUpdate = Invoice.builder()
+            .id(invoiceDto.getId())
+            .invoiceNumber(invoiceDto.getInvoiceNumber())
+            .billingAddress(invoice.getBillingAddress())
+            .totalAmount(invoice.getTotalAmount())
+            .customer(invoice.getCustomer())
+            .invoiceItems(invoiceMapper.fromDtoToEntity(invoice).getInvoiceItems())
+            .build();
+
+        return invoiceMapper.fromEntityToDto(invoiceRepository.save(invoiceToUpdate));
     }
 
 
-
-    // Tested with Success
     @Override
     public List<InvoiceDto> getAllInvoices() {
         List<Invoice> invoices = invoiceRepository.findAll();
-        System.out.println("Invoice Service : ----> getAllInvoices()");
-        invoices.forEach(invoice -> {
-            System.out.println(invoice.getInvoiceNumber());
-            System.out.println(invoice.getTotalAmount());
-            System.out.println(invoice.getBillingAddress());
-        });
         return invoices.stream()
             .map(invoiceMapper::fromEntityToDto)
             .collect(Collectors.toList());
     }
 
 
-    // Tested with Success
     @Override
     public InvoiceDto findInvoiceById(Long invoiceId) {
         if (invoiceId == null) {
@@ -72,8 +77,6 @@ public class InvoiceServiceImpl implements InvoiceService {
             return null;
         }
         Optional<Invoice> invoice = invoiceRepository.findById(invoiceId);
-        System.out.println("Invoice Service : ----> findInvoiceById()");
-        System.out.println(invoice.get().getInvoiceNumber());
         InvoiceDto invoiceDto = invoiceMapper.fromEntityToDto(invoice.get());
         return Optional.of(invoiceDto).orElseThrow(
             () ->  new EntityNotFoundException("No Invoice Found With ID "+invoiceId, ErrorsCode.INVOICE_NOT_FOUND)
@@ -81,7 +84,6 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
 
-    // Tested with Success
     @Override
     public InvoiceDto findInvoiceByNumber(String invoiceNumber) {
         if (!StringUtils.hasLength(invoiceNumber)) {
@@ -89,21 +91,19 @@ public class InvoiceServiceImpl implements InvoiceService {
             return null;
         }
         Optional<Invoice> invoice = invoiceRepository.findInvoiceByInvoiceNumber(invoiceNumber);
-        System.out.println("Invoice Service : ----> findInvoiceByNumber()");
-        System.out.println(invoice.get().getInvoiceNumber());
         InvoiceDto invoiceDto = invoiceMapper.fromEntityToDto(invoice.get());
         return Optional.of(invoiceDto).orElseThrow(
-                () ->  new EntityNotFoundException("No Invoice Found With Number "+invoiceNumber, ErrorsCode.INVOICE_NOT_FOUND)
+            () ->  new EntityNotFoundException("No Invoice Found With Number "+ invoiceNumber, ErrorsCode.INVOICE_NOT_FOUND)
         );
     }
 
     @Override
-    public void deleteInvoice(Long invoiceId) {
+    public ResponseEntity<HttpStatus> deleteInvoice(Long invoiceId) {
         if (invoiceId == null) {
             log.error("Error: Invalid Invoice Identifier ...");
-            return;
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         invoiceRepository.deleteById(invoiceId);
-        System.out.println("Invoice Service : ----> deleteInvoice()");
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

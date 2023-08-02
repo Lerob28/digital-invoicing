@@ -3,14 +3,14 @@ package cm.uni2grow.digitalinvoicing.controllers;
 import cm.uni2grow.digitalinvoicing.controllers.api.CustomerApi;
 import cm.uni2grow.digitalinvoicing.dtos.CustomerDto;
 import cm.uni2grow.digitalinvoicing.services.CustomerService;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 @RestController
 public class CustomerController implements CustomerApi {
-
     @Autowired
     private CustomerService customerService;
     @Override
@@ -19,8 +19,8 @@ public class CustomerController implements CustomerApi {
     }
 
     @Override
-    public CustomerDto updateCustomer(CustomerDto customer, Long customerId) {
-        return customerService.updateCustomer(customer);
+    public CustomerDto updateCustomer(Long customerId, CustomerDto customer) {
+        return customerService.updateCustomer(customerId, customer);
     }
 
     @Override
@@ -34,7 +34,7 @@ public class CustomerController implements CustomerApi {
     }
 
     @Override
-    public void deleteCustomer(Long customerId) {
-        customerService.deleteCustomer(customerId);
+    public ResponseEntity<HttpStatus> deleteCustomer(Long customerId) {
+        return customerService.deleteCustomer(customerId);
     }
 }

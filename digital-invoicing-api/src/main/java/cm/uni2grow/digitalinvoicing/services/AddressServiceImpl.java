@@ -26,8 +26,8 @@ import java.util.stream.Collectors;
 public class AddressServiceImpl implements AddressService {
 
     private AddressRepository addressRepository;
-
     private AddressMapper addressMapper;
+
     @Override
     public AddressDto createAddress(AddressDto address) {
         List<String> errors = AddressValidator.validate(address);
@@ -76,7 +76,6 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public ResponseEntity<HttpStatus> deleteAddress(Long addressId) {
-        System.out.println("attempt to delete Address with ID : "+addressId);
         if (addressId == null) {
             log.error("Error: Invalid Address Identifier ...");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

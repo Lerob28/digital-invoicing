@@ -1,11 +1,14 @@
 package cm.uni2grow.digitalinvoicing.exceptions;
 
 public enum ErrorsCode {
-    ADDRESS_NOT_FOUND(100),
-    INVALID_ADDRESS(101),
+    ADDRESS_NOT_FOUND(1000),
+    INVALID_ADDRESS(1001),
 
-    INVOICE_NOT_FOUND(200),
-    INVALID_INVOICE(201);
+    CUSTOMER_NOT_FOUND(2000),
+    INVALID_CUSTOMER(2001),
+
+    INVOICE_NOT_FOUND(3000),
+    INVALID_INVOICE(3001);
 
     // TODO : complete the rest of the list
 
