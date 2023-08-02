@@ -3,15 +3,12 @@ package cm.uni2grow.digitalinvoicing.mappers;
 import cm.uni2grow.digitalinvoicing.dtos.InvoiceDto;
 import cm.uni2grow.digitalinvoicing.entities.Invoice;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
+import org.mapstruct.NullValueCheckStrategy;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 
-@Mapper
+//@Mapper(componentModel = "spring",nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE, nullValueCheckStrategy =  NullValueCheckStrategy.ALWAYS)
+@Mapper(componentModel = "spring")
 public interface InvoiceMapper {
-    InvoiceMapper INSTANCE = Mappers.getMapper(InvoiceMapper.class);
-
     InvoiceDto fromEntityToDto(Invoice invoice);
-
     Invoice fromDtoToEntity(InvoiceDto invoiceDto);
-
 }

@@ -13,6 +13,7 @@ public abstract class AddressValidator {
         if(addressDto == null) {
             errors.add("Vous ne pouvez enregistrer un Objet vide");
         }
+
         if(!StringUtils.hasLength(addressDto.getCity())) {
             errors.add("Veillez renseigner une adresse email");
         }

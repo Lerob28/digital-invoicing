@@ -25,7 +25,4 @@ public class InvoiceItem extends AbstractEntity {
 
     private Double price;
 
-    @ManyToOne
-    private Invoice invoice;
-
 }

@@ -7,17 +7,17 @@ public class EntityNotFoundException extends RuntimeException {
     @Getter
     private ErrorsCode errorsCode;
 
-    private EntityNotFoundException(String message) {
+    public EntityNotFoundException(String message) {
         super(message);
     }
-    private EntityNotFoundException(String message, Throwable cause) {
+    public EntityNotFoundException(String message, Throwable cause) {
         super(message, cause);
     }
-    private EntityNotFoundException(String message, Throwable cause, ErrorsCode errorsCode) {
+    public EntityNotFoundException(String message, Throwable cause, ErrorsCode errorsCode) {
         super(message, cause);
         this.errorsCode = errorsCode;
     }
-    private EntityNotFoundException(String message, ErrorsCode errorsCode) {
+    public EntityNotFoundException(String message, ErrorsCode errorsCode) {
         super(message);
         this.errorsCode = errorsCode;
     }

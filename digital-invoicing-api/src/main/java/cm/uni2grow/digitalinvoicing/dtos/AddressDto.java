@@ -1,6 +1,5 @@
 package cm.uni2grow.digitalinvoicing.dtos;
 
-import cm.uni2grow.digitalinvoicing.entities.Address;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

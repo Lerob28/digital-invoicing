@@ -19,6 +19,7 @@ public class Invoice extends  AbstractEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     private String invoiceNumber;
 
     private Double totalAmount;
@@ -26,7 +27,7 @@ public class Invoice extends  AbstractEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     private Customer customer;
 
-    @OneToMany(mappedBy = "invoice", fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER)
     private List<InvoiceItem> invoiceItems;
 
     @OneToOne(fetch = FetchType.EAGER)
