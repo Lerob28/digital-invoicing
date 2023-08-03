@@ -11,7 +11,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class InvoiceDto {
+public class SimpleInvoiceDto {
 
     private Long id;
 
@@ -19,10 +19,10 @@ public class InvoiceDto {
 
     private Double totalAmount;
 
-    private CustomerDto customer;
+    private Long customer;
 
     private List<InvoiceItemDto> invoiceItems;
 
-    private AddressDto billingAddress;
+    private Long address;
 
 }

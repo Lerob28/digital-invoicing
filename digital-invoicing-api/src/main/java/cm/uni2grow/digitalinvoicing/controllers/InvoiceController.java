@@ -2,6 +2,7 @@ package cm.uni2grow.digitalinvoicing.controllers;
 
 import cm.uni2grow.digitalinvoicing.controllers.api.InvoiceApi;
 import cm.uni2grow.digitalinvoicing.dtos.InvoiceDto;
+import cm.uni2grow.digitalinvoicing.dtos.SimpleInvoiceDto;
 import cm.uni2grow.digitalinvoicing.services.InvoiceService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,8 @@ public class InvoiceController implements InvoiceApi {
     private InvoiceService invoiceService;
 
     @Override
-    public ResponseEntity<InvoiceDto> createInvoice(InvoiceDto invoice) {
-         InvoiceDto invoiceDto = invoiceService.createInvoice(invoice);
+    public ResponseEntity<InvoiceDto> createInvoice(SimpleInvoiceDto simpleInvoiceDto) {
+         InvoiceDto invoiceDto = invoiceService.createInvoice(simpleInvoiceDto);
         return new ResponseEntity<>(invoiceDto, HttpStatus.CREATED);
     }
 

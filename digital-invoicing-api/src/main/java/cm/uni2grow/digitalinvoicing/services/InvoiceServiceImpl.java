@@ -1,11 +1,16 @@
 package cm.uni2grow.digitalinvoicing.services;
 
-import cm.uni2grow.digitalinvoicing.dtos.InvoiceDto;
+import cm.uni2grow.digitalinvoicing.dtos.*;
 import cm.uni2grow.digitalinvoicing.entities.Invoice;
+import cm.uni2grow.digitalinvoicing.entities.InvoiceItem;
 import cm.uni2grow.digitalinvoicing.exceptions.EntityNotFoundException;
 import cm.uni2grow.digitalinvoicing.exceptions.ErrorsCode;
 import cm.uni2grow.digitalinvoicing.exceptions.InvalidEntityException;
+import cm.uni2grow.digitalinvoicing.mappers.AddressMapper;
+import cm.uni2grow.digitalinvoicing.mappers.CustomerMapper;
+import cm.uni2grow.digitalinvoicing.mappers.InvoiceItemMapper;
 import cm.uni2grow.digitalinvoicing.mappers.InvoiceMapper;
+import cm.uni2grow.digitalinvoicing.repositories.InvoiceItemRepository;
 import cm.uni2grow.digitalinvoicing.repositories.InvoiceRepository;
 import cm.uni2grow.digitalinvoicing.validators.InvoiceValidator;
 
@@ -20,6 +25,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -33,15 +39,39 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     private InvoiceRepository invoiceRepository;
     private InvoiceMapper invoiceMapper;
+    private AddressMapper addressMapper;
+    private CustomerMapper customerMapper;
+    private AddressService addressService;
+    private CustomerService customerService;
+    private InvoiceItemRepository invoiceItemRepository;
+    private InvoiceItemMapper invoiceItemMapper;
 
     @Override
-    public InvoiceDto createInvoice(InvoiceDto invoice) {
-        List<String> errors = InvoiceValidator.validate(invoice);
-        if (!errors.isEmpty()) {
-           log.error("Error: Invalid Invoice ...");
-           throw new InvalidEntityException("Invalid Invoice Given ...", ErrorsCode.INVALID_INVOICE, errors);
-        }
-        Invoice savedInvoice = invoiceRepository.save(invoiceMapper.fromDtoToEntity(invoice));
+    public InvoiceDto createInvoice(SimpleInvoiceDto simpleInvoiceDto) {
+
+       List<InvoiceItemDto> items = new ArrayList<>();
+
+       AddressDto addressDto = addressService.getAddressByID(simpleInvoiceDto.getAddress());
+       CustomerDto customerDto = customerService.getCustomerByID(simpleInvoiceDto.getCustomer());
+
+       simpleInvoiceDto.getInvoiceItems().forEach(
+           invoiceItemDto -> {
+               InvoiceItem savedInvoiceItem = invoiceItemRepository.save(invoiceItemMapper.fromDtoToEntity(invoiceItemDto));
+               items.add(invoiceItemMapper.fromEntityToDto(savedInvoiceItem));
+           }
+       );
+
+       InvoiceDto invoiceToSave = InvoiceDto.builder()
+           .invoiceNumber(simpleInvoiceDto.getInvoiceNumber())
+           .totalAmount(simpleInvoiceDto.getTotalAmount())
+           .customer(customerDto)
+           .billingAddress(addressDto)
+           .invoiceItems(items)
+           .build();
+
+       System.out.println(invoiceToSave.toString());
+
+        Invoice savedInvoice = invoiceRepository.save(invoiceMapper.fromDtoToEntity(invoiceToSave));
         return invoiceMapper.fromEntityToDto(savedInvoice);
     }
 
@@ -51,9 +81,9 @@ public class InvoiceServiceImpl implements InvoiceService {
         Invoice invoiceToUpdate = Invoice.builder()
             .id(invoiceDto.getId())
             .invoiceNumber(invoiceDto.getInvoiceNumber())
-            .billingAddress(invoice.getBillingAddress())
+            .billingAddress(addressMapper.fromDtoToEntity(invoice.getBillingAddress()))
             .totalAmount(invoice.getTotalAmount())
-            .customer(invoice.getCustomer())
+            .customer(customerMapper.fromDtoToEntity(invoice.getCustomer()))
             .invoiceItems(invoiceMapper.fromDtoToEntity(invoice).getInvoiceItems())
             .build();
 
