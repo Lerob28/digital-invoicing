@@ -19,4 +19,6 @@ public class SimpleCustomerDto {
 
     private String phone;
 
+    private Long address;
+
 }

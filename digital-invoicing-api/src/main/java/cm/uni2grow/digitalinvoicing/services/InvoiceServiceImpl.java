@@ -69,8 +69,6 @@ public class InvoiceServiceImpl implements InvoiceService {
            .invoiceItems(items)
            .build();
 
-       System.out.println(invoiceToSave.toString());
-
         Invoice savedInvoice = invoiceRepository.save(invoiceMapper.fromDtoToEntity(invoiceToSave));
         return invoiceMapper.fromEntityToDto(savedInvoice);
     }

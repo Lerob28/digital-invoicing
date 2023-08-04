@@ -2,6 +2,7 @@ package cm.uni2grow.digitalinvoicing.controllers;
 
 import cm.uni2grow.digitalinvoicing.controllers.api.CustomerApi;
 import cm.uni2grow.digitalinvoicing.dtos.CustomerDto;
+import cm.uni2grow.digitalinvoicing.dtos.SimpleCustomerDto;
 import cm.uni2grow.digitalinvoicing.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,8 +15,8 @@ public class CustomerController implements CustomerApi {
     @Autowired
     private CustomerService customerService;
     @Override
-    public CustomerDto createCustomer(CustomerDto customer) {
-        return customerService.createCustomer(customer);
+    public CustomerDto createCustomer(SimpleCustomerDto simpleCustomerDto) {
+        return customerService.createCustomer(simpleCustomerDto);
     }
 
     @Override

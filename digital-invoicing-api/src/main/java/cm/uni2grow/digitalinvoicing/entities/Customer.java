@@ -25,7 +25,7 @@ public class Customer extends AbstractEntity {
     @Column(unique = true)
     private String phone;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Address address;
 
 }

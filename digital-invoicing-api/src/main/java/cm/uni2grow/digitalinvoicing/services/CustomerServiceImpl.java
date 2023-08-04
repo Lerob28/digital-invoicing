@@ -1,6 +1,8 @@
 package cm.uni2grow.digitalinvoicing.services;
 
+import cm.uni2grow.digitalinvoicing.dtos.AddressDto;
 import cm.uni2grow.digitalinvoicing.dtos.CustomerDto;
+import cm.uni2grow.digitalinvoicing.dtos.SimpleCustomerDto;
 import cm.uni2grow.digitalinvoicing.entities.Customer;
 import cm.uni2grow.digitalinvoicing.exceptions.EntityNotFoundException;
 import cm.uni2grow.digitalinvoicing.exceptions.ErrorsCode;
@@ -27,15 +29,20 @@ public class CustomerServiceImpl implements CustomerService {
 
     private CustomerRepository customerRepository;
     private CustomerMapper customerMapper;
+    private AddressService addressService;
 
     @Override
-    public CustomerDto createCustomer(CustomerDto customer) {
-        List<String> errors = CustomerValidator.validate(customer);
-        if (!errors.isEmpty()) {
-            log.error("Error: Invalid Customer ...");
-            throw new InvalidEntityException("Invalid Customer Given ...", ErrorsCode.INVALID_CUSTOMER, errors);
-        }
-        Customer savedCustomer = customerRepository.save(customerMapper.fromDtoToEntity(customer));
+    public CustomerDto createCustomer(SimpleCustomerDto simpleCustomerDto) {
+        AddressDto addressDto = addressService.getAddressByID(simpleCustomerDto.getAddress());
+        CustomerDto customerToSave = CustomerDto.builder()
+                .name(simpleCustomerDto.getName())
+                .phone(simpleCustomerDto.getPhone())
+                .email(simpleCustomerDto.getEmail())
+                .address(addressDto)
+                .build();
+        System.out.println("Customer to save ..........");
+        System.out.println(customerToSave.toString());
+        Customer savedCustomer = customerRepository.save(customerMapper.fromDtoToEntity(customerToSave));
         return customerMapper.fromEntityToDto(savedCustomer);
     }
 
